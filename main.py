@@ -5,7 +5,7 @@ import tensorflow as tf
 import pandas as pd
 import time as tm
 from haversine import haversine
-#import random
+import random
 from random import sample
 import math
 # action is in the set of (0,1,2,3) = (north, east, south, west)
@@ -63,12 +63,11 @@ def update_net(trainable_var, sess):
         sess.run(contain)
     
 print("------------for tensorflow --------------")
-tf.reset_default_graph()
-with tf.variable_scope('Qnet'):
+tf.compat.v1.reset_default_graph()
+with tf.compat.v1.variable_scope('Qnet'):
     Qnet = Qnetwork(s_size=2, a_size=4)
-with tf.variable_scope('Targetnet'):
+with tf.compat.v1.variable_scope('Targetnet'):
     Targetnet = Qnetwork(s_size=2, a_size=4)
-
 
 
 print("------------for env & google info--------------")
@@ -83,7 +82,7 @@ learning_rate = 0.0001
 
 print("------------for map --------------")
 s = env.start_position
-saver = tf.train.Saver(max_to_keep=50)
+saver = tf.compat.v1.train.Saver(max_to_keep=50)
 print("map bound: ", env.map_bound)
 north = env.map_bound['north']
 east = env.map_bound['east']
@@ -111,8 +110,8 @@ s_list = list(s)
 print("start position: ", s_list)
 print("end position: ", env.end_position)
 replay_buffer = experience_replay_buffer()
-init = tf.global_variables_initializer()
-trainable_var = tf.trainable_variables()
+init = tf.compat.v1.global_variables_initializer()
+trainable_var = tf.compat.v1.trainable_variables()
 print("trainable_var", len(trainable_var))
 
 
@@ -178,7 +177,7 @@ df_1.to_csv("./ev/train_para.csv", header=["google map_boundary", "map_height(km
 print("sleep 5 min")
 tm.sleep(10)
 print("------------Start training --------------")
-with tf.Session() as sess:
+with tf.compat.v1.Session() as sess:
     sess.run(init)
     battery = []
     total_step = 0
