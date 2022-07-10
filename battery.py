@@ -13,9 +13,14 @@ class lithium_ion_battery():
         self.Ah = self.capacity / (self.cell_voltage * 100)
         self.need_charge = False
         self.energy_consume = 0
-        self.SOC = 0.9
+        self.SOC = 0.9   # SOC ： 电池充电状态(采用电池90%~20%的SOC来演唱电池寿命)
         #self.output = 1  # unit is C, c rate
 
+    '''
+        电池使用
+        SOC = 当前能量 / 总能量
+        在实验中，演示在理想条件下电池需要 消耗多少能量 和 充电多少次
+    '''
     def use(self, duration, power):
         # duration in second
         # power in Watt  (j/s)

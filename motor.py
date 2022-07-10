@@ -1,16 +1,19 @@
 import math
 
+'''
+    计算能耗
+'''
 class need_energy():
     def __init__(self):
-        self.mass = 2000 #kg
-        self.mass_factor = 1.05
-        self.acceleration = 0 # m^2 / s
-        self.coeff_roll_R = 0.02  # coefficient of rolling resistance
-        self.air_density = 1.225 # kg/m^3
-        self.front_area = 2 # m^2
-        self.aero_drag_coff = 0.5
-        self.wind_speed = 0 # m/s
-        self.road_angle = 0 # angle
+        self.mass = 2000 # kg  总质量
+        self.mass_factor = 1.05   # 质量系数 FMI
+        self.acceleration = 0 # m^2 / s  加速度(a)
+        self.coeff_roll_R = 0.02  # 轮胎和地面之间的滚动阻力系数Crr
+        self.air_density = 1.225 # kg/m^3  空气密度(ρ)
+        self.front_area = 2 # m^2  正面面积(A)
+        self.aero_drag_coff = 0.5   # 气动阻力系数Cd
+        self.wind_speed = 0 # m/s    风速Vw
+        self.road_angle = 0 # 倾斜度
 
     def energy(self, angle, V):  # V is driving speed
         self.road_angle = angle
