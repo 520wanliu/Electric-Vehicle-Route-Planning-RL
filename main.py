@@ -11,6 +11,8 @@ import math
 # action is in the set of (0,1,2,3) = (north, east, south, west)
 # s1, r, d = env.step(2)   # s1: next state = (lat,lng)  // r: reward for taking step  // d: End, True or False
 #  initialize environment  env = environment('Purdue University West Lafayette', '40.3025301,-86.886558')
+
+# 实验：回放缓冲区
 class experience_replay_buffer():
     def __init__(self, size = 50000):
         self.buffer = []
@@ -92,6 +94,8 @@ upper_left = (north, west)
 upper_right = (north, east)
 lower_left = (south, west)
 lower_right = (south, east)
+
+# haversine公式 ： 计算两点（经纬度坐标）间距离（计算两点之间的直线距离）
 map_height = haversine(upper_left, lower_left)
 map_wide = haversine(upper_left, upper_right) if haversine(upper_left, upper_right) > haversine(lower_left, lower_right) else haversine(lower_left, lower_right)
 #print("map height stride: ", (north - south)/(map_height*env.length))
@@ -121,8 +125,8 @@ path = "./ev/model"
 pre_train = pre_train_step  # don't update and train the model within these steps
 train_num = 300   # total episode num
 max_step = max_train_step
-updata_f = 5   # frequency of copy weights from Qnet to Targetnet
-batch_num = 32
+updata_f = 5   # frequency of copy weights from Qnet to Targetnet  从Q-net到Target-net的拷贝权重的频率
+batch_num = 32    # 批处理数量
 gamma = 0.9 # discount factor
 high_prob = 1
 low_prob = 0.1
